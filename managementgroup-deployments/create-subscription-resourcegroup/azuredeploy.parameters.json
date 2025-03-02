@@ -1,5 +1,27 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
-  "parameters": { }
+  "parameters": {
+    "enrollmentAccount": {
+      "value": "v-shipawar@microsoft.com"
+    },
+    "billingAccount": {
+      "value": "v-shipawar@microsoft.com"
+    },
+    "subscriptionAlias": {
+      "value": "bf9edcf3-eba7-4519-85b2-e636965fcd60"
+    },
+    "subscriptionDisplayName": {
+      "value": "MCAPS-Support-REQ-91917-2024-v-shipawar"
+    },
+    "subscriptionWorkload": {
+      "value": "Production" // or "DevTest"
+    },
+    "resourceGroupName": {
+      "value": "demo"
+    },
+    "location": {
+      "value": "eastus" // or your preferred location
+    }
+  }
 }
