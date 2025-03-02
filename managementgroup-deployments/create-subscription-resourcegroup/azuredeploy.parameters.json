@@ -15,13 +15,13 @@
       "value": "MCAPS-Support-REQ-91917-2024-v-shipawar"
     },
     "subscriptionWorkload": {
-      "value": "Production" // or "DevTest"
+      "value": "Production"
     },
     "resourceGroupName": {
       "value": "demo"
     },
     "location": {
-      "value": "eastus" // or your preferred location
+      "value": "eastus"
     }
   }
 }
