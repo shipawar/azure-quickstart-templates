@@ -1,90 +1,164 @@
 {
-  "type": "Microsoft.Resources/deployments",
-  "apiVersion": "2020-10-01",
-  "name": "[format('create-{0}', parameters('subscriptionAlias'))]",
-  "properties": {
-    "expressionEvaluationOptions": {
-      "scope": "inner"
-    },
-    "mode": "Incremental",
-    "parameters": {
-      "billingAccount": {
-        "value": "[parameters('billingAccount')]"
-      },
-      "enrollmentAccount": {
-        "value": "[parameters('enrollmentAccount')]"
-      },
-      "subscriptionAlias": {
-        "value": "[parameters('subscriptionAlias')]"
-      },
-      "subscriptionDisplayName": {
-        "value": "[parameters('subscriptionDisplayName')]"
-      },
-      "subscriptionWorkload": {
-        "value": "[parameters('subscriptionWorkload')]"
-      }
-    },
-    "template": {
-      "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
-      "contentVersion": "1.0.0.0",
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.8.9.13224",
+      "templateHash": "14564494767918889191"
+    }
+  },
+  "parameters": {
+    "enrollmentAccount": {
+      "type": "string",
       "metadata": {
-        "_generator": {
-          "name": "bicep",
-          "version": "0.8.9.13224",
-          "templateHash": "14402176214700807687"
-        }
-      },
-      "parameters": {
-        "enrollmentAccount": {
-          "type": "string",
-          "metadata": {
-            "description": "EnrollmentAccount used for subscription billing"
-          }
-        },
-        "billingAccount": {
-          "type": "string",
-          "metadata": {
-            "description": "BillingAccount used for subscription billing"
-          }
-        },
-        "subscriptionAlias": {
-          "type": "string",
-          "metadata": {
-            "description": "Alias to assign to the subscription"
-          }
-        },
-        "subscriptionDisplayName": {
-          "type": "string",
-          "metadata": {
-            "description": "Display name for the subscription"
-          }
-        },
-        "subscriptionWorkload": {
-          "type": "string",
-          "metadata": {
-            "description": "Workload type for the subscription"
-          }
-        }
-      },
-      "resources": [
-        {
-          "type": "Microsoft.Subscription/aliases",
-          "apiVersion": "2020-09-01",
-          "scope": "/",
-          "name": "[parameters('subscriptionAlias')]",
-          "properties": {
-            "workload": "[parameters('subscriptionWorkload')]",
-            "displayName": "[parameters('subscriptionDisplayName')]",
-            "billingScope": "[tenantResourceId('Microsoft.Billing/billingAccounts/enrollmentAccounts', parameters('billingAccount'), parameters('enrollmentAccount'))]"
-          }
-        }
+        "description": "EnrollmentAccount used for subscription billing"
+      }
+    },
+    "billingAccount": {
+      "type": "string",
+      "metadata": {
+        "description": "BillingAccount used for subscription billing"
+      }
+    },
+    "subscriptionAlias": {
+      "type": "string",
+      "metadata": {
+        "description": "Alias to assign to the subscription"
+      }
+    },
+    "subscriptionDisplayName": {
+      "type": "string",
+      "metadata": {
+        "description": "Display name for the subscription"
+      }
+    },
+    "subscriptionWorkload": {
+      "type": "string",
+      "allowedValues": [
+        "Production",
+        "DevTest"
       ],
-      "outputs": {
-        "subscriptionId": {
-          "type": "string",
-          "value": "[reference(tenantResourceId('Microsoft.Subscription/aliases', parameters('subscriptionAlias'))).subscriptionId]"
+      "metadata": {
+        "description": "Workload type for the subscription"
+      }
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "defaultValue": "demo",
+      "metadata": {
+        "description": "Name of the resourceGroup, will be created in the same location as the deployment."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[deployment().location]",
+      "metadata": {
+        "description": "Location for the deployments and the resources"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[format('create-{0}', parameters('subscriptionAlias'))]",
+      "location": "[deployment().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "billingAccount": {
+            "value": "[parameters('billingAccount')]"
+          },
+          "enrollmentAccount": {
+            "value": "[parameters('enrollmentAccount')]"
+          },
+          "subscriptionAlias": {
+            "value": "[parameters('subscriptionAlias')]"
+          },
+          "subscriptionDisplayName": {
+            "value": "[parameters('subscriptionDisplayName')]"
+          },
+          "subscriptionWorkload": {
+            "value": "[parameters('subscriptionWorkload')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.8.9.13224",
+              "templateHash": "14402176214700807687"
+            }
+          },
+          "parameters": {
+            "enrollmentAccount": {
+              "type": "string",
+              "metadata": {
+                "description": "EnrollmentAccount used for subscription billing"
+              }
+            },
+            "billingAccount": {
+              "type": "string",
+              "metadata": {
+                "description": "BillingAccount used for subscription billing"
+              }
+            },
+            "subscriptionAlias": {
+              "type": "string",
+              "metadata": {
+                "description": "Alias to assign to the subscription"
+              }
+            },
+            "subscriptionDisplayName": {
+              "type": "string",
+              "metadata": {
+                "description": "Display name for the subscription"
+              }
+            },
+            "subscriptionWorkload": {
+              "type": "string",
+              "metadata": {
+                "description": "Workload type for the subscription"
+              }
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Subscription/aliases",
+              "apiVersion": "2020-09-01",
+              "scope": "/",
+              "name": "[parameters('subscriptionAlias')]",
+              "properties": {
+                "workload": "[parameters('subscriptionWorkload')]",
+                "displayName": "[parameters('subscriptionDisplayName')]",
+                "billingScope": "[tenantResourceId('Microsoft.Billing/billingAccounts/enrollmentAccounts', parameters('billingAccount'), parameters('enrollmentAccount'))]"
+              }
+            }
+          ],
+          "outputs": {
+            "subscriptionId": {
+              "type": "string",
+              "value": "[reference(tenantResourceId('Microsoft.Subscription/aliases', parameters('subscriptionAlias'))).subscriptionId]"
+            }
+          }
         }
       }
+    }
+  ],
+  "outputs": {
+    "subscriptionId": {
+      "type": "string",
+      "value": "[reference(extensionResourceId(managementGroup().id, 'Microsoft.Resources/deployments', format('create-{0}', parameters('subscriptionAlias')))).outputs.subscriptionId.value]"
+    },
+    "storageAccountId": {
+      "type": "string",
+      "value": "[reference(extensionResourceId(managementGroup().id, 'Microsoft.Resources/deployments', format('nested-createResourceGroup-{0}', parameters('resourceGroupName')))).outputs.storageAccountId.value]"
     }
   }
 }
